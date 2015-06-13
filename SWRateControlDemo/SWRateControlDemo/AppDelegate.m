@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import "SWRateControlItemViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    ViewController *rateControlController = [[ViewController alloc] init];
+    SWRateControlItemViewController *rateItemController = [[SWRateControlItemViewController alloc] init];
+    
+    UITabBarController *rootController = [[UITabBarController alloc] init];
+    rootController.viewControllers = @[rateControlController, rateItemController];
+    self.window.rootViewController = rootController;
+    
     return YES;
 }
 
