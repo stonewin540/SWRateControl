@@ -28,7 +28,21 @@
     SWRateControl *control = [[SWRateControl alloc] init];
     control.backgroundColor = [UIColor blueColor];
     control.rating = 1;
+    control.enabled = NO;
     [self.view addSubview:control];
+    
+    SWRateControl *control2 = [[SWRateControl alloc] init];
+    control2.backgroundColor = [UIColor lightGrayColor];
+    [control2 setRateImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
+    [control2 setRateImage:[UIImage imageNamed:@"star_highlighted"] forState:UIControlStateHighlighted];
+    {
+        CGRect frame = CGRectZero;
+        frame.size = [control2 sizeThatFits:CGSizeMake(0, 70)];
+        frame.origin.x = roundf((CGRectGetWidth(self.view.bounds) - frame.size.width) / 2);
+        frame.origin.y = 200;
+        control2.frame = frame;
+    }
+    [self.view addSubview:control2];
     
     __weak __typeof (self) wself = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
