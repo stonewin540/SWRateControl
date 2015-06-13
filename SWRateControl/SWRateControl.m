@@ -37,6 +37,7 @@ static const CGFloat kDefaultHeight = 50;
         
         _numberOfItems = 5;
         _medialGap = 5;
+        _fragment = 2;
         _rateItems = [[NSMutableArray alloc] init];
         
         [self reloadData];
@@ -71,6 +72,68 @@ static const CGFloat kDefaultHeight = 50;
     CGFloat width = itemsWidth + gapsWidth;
     
     return CGSizeMake(width, height);
+}
+
+#pragma mark - Interactive
+
+- (CGFloat)ratingOfPoint:(CGPoint)point {
+    CGFloat rating = 0;
+    
+    if (!CGRectContainsPoint(self.bounds, point)) {
+        if (point.x <= CGRectGetMinX(self.bounds)) {
+            rating = 0;
+        } else if (CGRectGetMaxX(self.bounds) <= point.x) {
+            rating = self.numberOfItems;
+        }
+        return rating;
+    }
+    
+    SWRateControlItem *item;
+    NSUInteger count = self.rateItems.count;
+    for (int i = 0; i < count; i++) {
+        item = self.rateItems[i];
+        CGRect frame = item.frame;
+        frame.size.width += self.medialGap;
+        if (CGRectContainsPoint(frame, point)) {
+            break;
+        }
+        
+        rating++;
+    }
+    
+    CGFloat fragmentRating = 1.f / self.fragment;
+    CGFloat fragmentWidth = CGRectGetWidth(item.frame) / self.fragment;
+    for (int i = 0; i < self.fragment; i++) {
+        rating += fragmentRating;
+        
+        CGFloat amount = fragmentWidth + (fragmentWidth * i);
+        CGRect slice, remainder;
+        CGRectDivide(item.frame, &slice, &remainder, amount, CGRectMinXEdge);
+        if (CGRectContainsPoint(slice, point))
+        {
+            break;
+        }
+    }
+    
+    return rating;
+}
+
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint point = [touch locationInView:self];
+    CGFloat rating = [self ratingOfPoint:point];
+    self.rating = rating;
+    return YES;
+}
+
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    CGPoint point = [touch locationInView:self];
+    CGFloat rating = [self ratingOfPoint:point];
+    self.rating = rating;
+    return YES;
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    
 }
 
 /*

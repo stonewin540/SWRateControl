@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) CGFloat rating;
 @property (nonatomic, assign) CGFloat medialGap;
+@property (nonatomic, assign) int fragment;
 
 @end
 
