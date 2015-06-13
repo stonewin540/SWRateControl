@@ -35,6 +35,7 @@
     control2.backgroundColor = [UIColor lightGrayColor];
     [control2 setRateImage:[UIImage imageNamed:@"star"] forState:UIControlStateNormal];
     [control2 setRateImage:[UIImage imageNamed:@"star_highlighted"] forState:UIControlStateHighlighted];
+    [control2 addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     {
         CGRect frame = CGRectZero;
         frame.size = [control2 sizeThatFits:CGSizeMake(0, 70)];
@@ -101,6 +102,10 @@
     
     rating += 1 / 10.f;
     rating = (ceilf(rating) > 1) ? 0 : rating;
+}
+
+- (void)valueChanged:(SWRateControl *)sender {
+    NSLog(@"current rating: %.1f", sender.rating);
 }
 
 - (void)didReceiveMemoryWarning {

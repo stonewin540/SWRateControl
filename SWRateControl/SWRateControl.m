@@ -194,6 +194,8 @@ static const CGFloat kDefaultHeight = 50;
     [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
         itemView.rating = [wself ratingForItemAtIndex:idx];
     }];
+    
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)setNumberOfItems:(int)numberOfItems {
