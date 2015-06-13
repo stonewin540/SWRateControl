@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SWRateControlItemView : UIControl
+@interface SWRateControlItemView : UIView
 
 @property (nonatomic, assign) CGFloat rating;
 @property (nonatomic, strong) UIColor *rateColor, *rateColorHighlighted;
 @property (nonatomic, strong) UIImage *rateImage, *rateImageHighlighted;
+@property (nonatomic, getter=isUserInteractionEnabled, setter=setUserInteractionEnabled:) BOOL enabled;
 
 @end
