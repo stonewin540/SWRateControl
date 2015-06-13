@@ -20,6 +20,8 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.contentMode = UIViewContentModeRedraw;
         [self setRateColor:[UIColor grayColor] forState:UIControlStateNormal];
         [self setRateColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
     }
@@ -30,7 +32,7 @@
 
 - (void)setRating:(CGFloat)rating {
     CGFloat valid = MIN(rating, 1);
-    valid = MAX(rating, 0);
+    valid = MAX(valid, 0);
     if (_rating == valid)
     {
         return;
@@ -147,6 +149,8 @@
         default:
             break;
     }
+    
+    [self setNeedsDisplay];
 }
 
 - (UIColor *)rateColorForState:(UIControlState)state {
@@ -177,6 +181,8 @@
         default:
             break;
     }
+    
+    [self setNeedsDisplay];
 }
 
 - (UIImage *)rateImageForState:(UIControlState)state {
