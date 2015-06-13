@@ -14,6 +14,13 @@
 		8E0E02F11B2BCD4D0003E31D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E02F01B2BCD4D0003E31D /* Images.xcassets */; };
 		8E0E02F41B2BCD4D0003E31D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E02F21B2BCD4D0003E31D /* LaunchScreen.xib */; };
 		8E0E03001B2BCD4D0003E31D /* SWRateControlDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E02FF1B2BCD4D0003E31D /* SWRateControlDemoTests.m */; };
+		8E0E030C1B2BCE4E0003E31D /* SWRateControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E030B1B2BCE4E0003E31D /* SWRateControlItem.m */; };
+		8E0E03141B2BE35C0003E31D /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E030E1B2BE35C0003E31D /* star.png */; };
+		8E0E03151B2BE35C0003E31D /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E030F1B2BE35C0003E31D /* star@2x.png */; };
+		8E0E03161B2BE35C0003E31D /* star_highlighted-darker.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03101B2BE35C0003E31D /* star_highlighted-darker.png */; };
+		8E0E03171B2BE35C0003E31D /* star_highlighted-darker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03111B2BE35C0003E31D /* star_highlighted-darker@2x.png */; };
+		8E0E03181B2BE35C0003E31D /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03121B2BE35C0003E31D /* star_highlighted.png */; };
+		8E0E03191B2BE35C0003E31D /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03131B2BE35C0003E31D /* star_highlighted@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +47,14 @@
 		8E0E02F91B2BCD4D0003E31D /* SWRateControlDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWRateControlDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0E02FE1B2BCD4D0003E31D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E0E02FF1B2BCD4D0003E31D /* SWRateControlDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SWRateControlDemoTests.m; sourceTree = "<group>"; };
+		8E0E030A1B2BCE4E0003E31D /* SWRateControlItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRateControlItem.h; sourceTree = "<group>"; };
+		8E0E030B1B2BCE4E0003E31D /* SWRateControlItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRateControlItem.m; sourceTree = "<group>"; };
+		8E0E030E1B2BE35C0003E31D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		8E0E030F1B2BE35C0003E31D /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		8E0E03101B2BE35C0003E31D /* star_highlighted-darker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted-darker.png"; sourceTree = "<group>"; };
+		8E0E03111B2BE35C0003E31D /* star_highlighted-darker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted-darker@2x.png"; sourceTree = "<group>"; };
+		8E0E03121B2BE35C0003E31D /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
+		8E0E03131B2BE35C0003E31D /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +96,7 @@
 		8E0E02E21B2BCD4D0003E31D /* SWRateControlDemo */ = {
 			isa = PBXGroup;
 			children = (
+				8E0E03091B2BCE100003E31D /* SWRateControl */,
 				8E0E02E71B2BCD4D0003E31D /* AppDelegate.h */,
 				8E0E02E81B2BCD4D0003E31D /* AppDelegate.m */,
 				8E0E02EA1B2BCD4D0003E31D /* ViewController.h */,
@@ -117,6 +133,30 @@
 				8E0E02FE1B2BCD4D0003E31D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8E0E03091B2BCE100003E31D /* SWRateControl */ = {
+			isa = PBXGroup;
+			children = (
+				8E0E030D1B2BE35C0003E31D /* images */,
+				8E0E030A1B2BCE4E0003E31D /* SWRateControlItem.h */,
+				8E0E030B1B2BCE4E0003E31D /* SWRateControlItem.m */,
+			);
+			name = SWRateControl;
+			path = ../../SWRateControl;
+			sourceTree = "<group>";
+		};
+		8E0E030D1B2BE35C0003E31D /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8E0E030E1B2BE35C0003E31D /* star.png */,
+				8E0E030F1B2BE35C0003E31D /* star@2x.png */,
+				8E0E03101B2BE35C0003E31D /* star_highlighted-darker.png */,
+				8E0E03111B2BE35C0003E31D /* star_highlighted-darker@2x.png */,
+				8E0E03121B2BE35C0003E31D /* star_highlighted.png */,
+				8E0E03131B2BE35C0003E31D /* star_highlighted@2x.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,9 +239,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0E03161B2BE35C0003E31D /* star_highlighted-darker.png in Resources */,
+				8E0E03181B2BE35C0003E31D /* star_highlighted.png in Resources */,
 				8E0E02EF1B2BCD4D0003E31D /* Main.storyboard in Resources */,
+				8E0E03151B2BE35C0003E31D /* star@2x.png in Resources */,
+				8E0E03191B2BE35C0003E31D /* star_highlighted@2x.png in Resources */,
+				8E0E03141B2BE35C0003E31D /* star.png in Resources */,
 				8E0E02F41B2BCD4D0003E31D /* LaunchScreen.xib in Resources */,
 				8E0E02F11B2BCD4D0003E31D /* Images.xcassets in Resources */,
+				8E0E03171B2BE35C0003E31D /* star_highlighted-darker@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0E030C1B2BCE4E0003E31D /* SWRateControlItem.m in Sources */,
 				8E0E02EC1B2BCD4D0003E31D /* ViewController.m in Sources */,
 				8E0E02E91B2BCD4D0003E31D /* AppDelegate.m in Sources */,
 				8E0E02E61B2BCD4D0003E31D /* main.m in Sources */,
