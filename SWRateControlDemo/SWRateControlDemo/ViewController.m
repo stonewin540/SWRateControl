@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SWRateControlItem.h"
+#import "SWRateControl.h"
 
 @interface ViewController ()
 
@@ -24,16 +25,21 @@
     item.rating = .5f;
     [self.view addSubview:item];
     
+    SWRateControl *control = [[SWRateControl alloc] init];
+    control.backgroundColor = [UIColor blueColor];
+    control.rating = 1;
+    [self.view addSubview:control];
+    
     __weak __typeof (self) wself = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [NSTimer scheduledTimerWithTimeInterval:.1f target:wself selector:@selector(timerFire:) userInfo:item repeats:YES];
+        [NSTimer scheduledTimerWithTimeInterval:.1f target:wself selector:@selector(timerFire:) userInfo:@{@"item": item, @"control": control} repeats:YES];
     });
 }
 
 - (void)timerFire:(NSTimer *)timer {
     static CGFloat rating;
     
-    SWRateControlItem *item = timer.userInfo;
+    SWRateControlItem *item = timer.userInfo[@"item"];
     item.rating = rating;
     if (0 == rating) {
         UIImage *rateImage, *rateImageHighlighted;
@@ -48,6 +54,35 @@
         
         [item setRateImage:rateImage forState:UIControlStateNormal];
         [item setRateImage:rateImageHighlighted forState:UIControlStateHighlighted];
+    }
+    
+    int slowdown = (int)(rating * 10) % 4;
+    if (0 == slowdown)
+    {
+        CGFloat rt = (arc4random() % 51) / 10.f;
+        SWRateControl *control = timer.userInfo[@"control"];
+        control.rating = rt;
+        {
+            CGRect frame = CGRectZero;
+            frame.size = [control sizeThatFits:CGSizeZero];
+            frame.origin.y = CGRectGetMaxY(item.frame);
+            control.frame = frame;
+            
+            if (0 == rating) {
+                UIImage *rateImage, *rateImageHighlighted;
+                
+                if (arc4random() % 2) {
+                    rateImage = nil;
+                    rateImageHighlighted = nil;
+                } else {
+                    rateImage = [UIImage imageNamed:@"star"];
+                    rateImageHighlighted = [UIImage imageNamed:@"star_highlighted"];
+                }
+                
+                [control setRateImage:rateImage forState:UIControlStateNormal];
+                [control setRateImage:rateImageHighlighted forState:UIControlStateHighlighted];
+            }
+        }
     }
     
     rating += 1 / 10.f;
