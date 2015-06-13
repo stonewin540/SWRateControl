@@ -21,6 +21,7 @@
 		8E0E03171B2BE35C0003E31D /* star_highlighted-darker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03111B2BE35C0003E31D /* star_highlighted-darker@2x.png */; };
 		8E0E03181B2BE35C0003E31D /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03121B2BE35C0003E31D /* star_highlighted.png */; };
 		8E0E03191B2BE35C0003E31D /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E0E03131B2BE35C0003E31D /* star_highlighted@2x.png */; };
+		8E0E031C1B2BE79B0003E31D /* SWRateControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E0E031B1B2BE79B0003E31D /* SWRateControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		8E0E03111B2BE35C0003E31D /* star_highlighted-darker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted-darker@2x.png"; sourceTree = "<group>"; };
 		8E0E03121B2BE35C0003E31D /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
 		8E0E03131B2BE35C0003E31D /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
+		8E0E031A1B2BE79B0003E31D /* SWRateControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRateControl.h; sourceTree = "<group>"; };
+		8E0E031B1B2BE79B0003E31D /* SWRateControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRateControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,8 @@
 				8E0E030D1B2BE35C0003E31D /* images */,
 				8E0E030A1B2BCE4E0003E31D /* SWRateControlItem.h */,
 				8E0E030B1B2BCE4E0003E31D /* SWRateControlItem.m */,
+				8E0E031A1B2BE79B0003E31D /* SWRateControl.h */,
+				8E0E031B1B2BE79B0003E31D /* SWRateControl.m */,
 			);
 			name = SWRateControl;
 			path = ../../SWRateControl;
@@ -268,6 +273,7 @@
 				8E0E030C1B2BCE4E0003E31D /* SWRateControlItem.m in Sources */,
 				8E0E02EC1B2BCD4D0003E31D /* ViewController.m in Sources */,
 				8E0E02E91B2BCD4D0003E31D /* AppDelegate.m in Sources */,
+				8E0E031C1B2BE79B0003E31D /* SWRateControl.m in Sources */,
 				8E0E02E61B2BCD4D0003E31D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
