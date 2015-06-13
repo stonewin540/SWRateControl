@@ -22,6 +22,8 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.contentMode = UIViewContentModeRedraw;
+        self.enabled = NO;
+        
         [self setRateColor:[UIColor grayColor] forState:UIControlStateNormal];
         [self setRateColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
     }
