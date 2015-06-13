@@ -1,5 +1,5 @@
 //
-//  SWRateControlItem.h
+//  SWRateControlItemView.h
 //  SWRateControlDemo
 //
 //  Created by stone win on 6/13/15.
@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SWRateControlItem : UIControl
+@interface SWRateControlItemView : UIControl
 
 @property (nonatomic, assign) CGFloat rating;
 
 @end
 
-@interface SWRateControlItem (Appearance)
+@interface SWRateControlItemView (Appearance)
 
 - (void)setRateColor:(UIColor *)rateColor forState:(UIControlState)state;
 - (UIColor *)rateColorForState:(UIControlState)state;

@@ -7,11 +7,11 @@
 //
 
 #import "SWRateControl.h"
-#import "SWRateControlItem.h"
+#import "SWRateControlItemView.h"
 
-@interface SWRateControlItemWrapperView : UIView
+@interface SWRateControlItemViewWrapperView : UIView
 @end
-@implementation SWRateControlItemWrapperView
+@implementation SWRateControlItemViewWrapperView
 @end
 
 static const CGFloat kDefaultHeight = 50;
@@ -21,7 +21,7 @@ static const CGFloat kDefaultHeight = 50;
 
 
 @property (nonatomic, assign) int numberOfItems;
-@property (nonatomic, strong) NSMutableArray *rateItems;
+@property (nonatomic, strong) NSMutableArray *rateItemViews;
 
 @property (nonatomic, strong) UIColor *rateColor, *rateColorHighlighted;
 @property (nonatomic, strong) UIImage *rateImage, *rateImageHighlighted;
@@ -38,7 +38,7 @@ static const CGFloat kDefaultHeight = 50;
         _numberOfItems = 5;
         _medialGap = 5;
         _fragment = 2;
-        _rateItems = [[NSMutableArray alloc] init];
+        _rateItemViews = [[NSMutableArray alloc] init];
         
         [self reloadData];
     }
@@ -48,14 +48,14 @@ static const CGFloat kDefaultHeight = 50;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGRect itemFrame = CGRectZero;
-    itemFrame.size = CGSizeMake(CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds));
-    NSUInteger count = self.rateItems.count;
+    CGRect itemViewFrame = CGRectZero;
+    itemViewFrame.size = CGSizeMake(CGRectGetHeight(self.bounds), CGRectGetHeight(self.bounds));
+    NSUInteger count = self.rateItemViews.count;
     for (int i = 0; i < count; i++) {
-        SWRateControlItem *item = self.rateItems[i];
-        item.frame = itemFrame;
+        SWRateControlItemView *itemView = self.rateItemViews[i];
+        itemView.frame = itemViewFrame;
         
-        itemFrame.origin.x += CGRectGetWidth(itemFrame) + self.medialGap;
+        itemViewFrame.origin.x += CGRectGetWidth(itemViewFrame) + self.medialGap;
     }
 }
 
@@ -65,11 +65,11 @@ static const CGFloat kDefaultHeight = 50;
         height = kDefaultHeight;
     }
     
-    CGFloat itemDimension = height;
+    CGFloat itemViewDimension = height;
     int numberOfGaps = MAX(0, self.numberOfItems - 1);
-    CGFloat itemsWidth = self.numberOfItems * itemDimension;
+    CGFloat itemViewsWidth = self.numberOfItems * itemViewDimension;
     CGFloat gapsWidth = numberOfGaps * self.medialGap;
-    CGFloat width = itemsWidth + gapsWidth;
+    CGFloat width = itemViewsWidth + gapsWidth;
     
     return CGSizeMake(width, height);
 }
@@ -88,11 +88,11 @@ static const CGFloat kDefaultHeight = 50;
         return rating;
     }
     
-    SWRateControlItem *item;
-    NSUInteger count = self.rateItems.count;
+    SWRateControlItemView *itemView;
+    NSUInteger count = self.rateItemViews.count;
     for (int i = 0; i < count; i++) {
-        item = self.rateItems[i];
-        CGRect frame = item.frame;
+        itemView = self.rateItemViews[i];
+        CGRect frame = itemView.frame;
         frame.size.width += self.medialGap;
         if (CGRectContainsPoint(frame, point)) {
             break;
@@ -102,13 +102,13 @@ static const CGFloat kDefaultHeight = 50;
     }
     
     CGFloat fragmentRating = 1.f / self.fragment;
-    CGFloat fragmentWidth = CGRectGetWidth(item.frame) / self.fragment;
+    CGFloat fragmentWidth = CGRectGetWidth(itemView.frame) / self.fragment;
     for (int i = 0; i < self.fragment; i++) {
         rating += fragmentRating;
         
         CGFloat amount = fragmentWidth + (fragmentWidth * i);
         CGRect slice, remainder;
-        CGRectDivide(item.frame, &slice, &remainder, amount, CGRectMinXEdge);
+        CGRectDivide(itemView.frame, &slice, &remainder, amount, CGRectMinXEdge);
         if (CGRectContainsPoint(slice, point))
         {
             break;
@@ -144,23 +144,23 @@ static const CGFloat kDefaultHeight = 50;
 }
 */
 
-- (void)addItem:(SWRateControlItem *)item {
-    [self addSubview:item];
-    [self.rateItems addObject:item];
+- (void)addItemView:(SWRateControlItemView *)itemView {
+    [self addSubview:itemView];
+    [self.rateItemViews addObject:itemView];
 }
 
-- (void)removeAllItems {
-    [self.rateItems makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [self.rateItems removeAllObjects];
+- (void)removeAllItemViews {
+    [self.rateItemViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.rateItemViews removeAllObjects];
 }
 
 - (void)reloadData {
-    [self removeAllItems];
+    [self removeAllItemViews];
     
     for (int i = 0; i < self.numberOfItems; i++) {
-        SWRateControlItem *item = [[SWRateControlItem alloc] init];
-        item.rating = [self ratingForItemAtIndex:i];
-        [self addItem:item];
+        SWRateControlItemView *itemView = [[SWRateControlItemView alloc] init];
+        itemView.rating = [self ratingForItemAtIndex:i];
+        [self addItemView:itemView];
     }
 }
 
@@ -168,15 +168,15 @@ static const CGFloat kDefaultHeight = 50;
     return self.rating - index;
 }
 
-- (void)updateItemsWithBlock:(void(^)(int idx, SWRateControlItem *item))block {
+- (void)updateItemsWithBlock:(void(^)(int idx, SWRateControlItemView *itemView))block {
     if (!block) {
         return;
     }
     
-    NSUInteger count = self.rateItems.count;
+    NSUInteger count = self.rateItemViews.count;
     for (int i = 0; i < count; i++) {
-        SWRateControlItem *item = self.rateItems[i];
-        block(i, item);
+        SWRateControlItemView *itemView = self.rateItemViews[i];
+        block(i, itemView);
     }
 }
 
@@ -191,8 +191,8 @@ static const CGFloat kDefaultHeight = 50;
     _rating = valid;
     
     __weak __typeof (self) wself = self;
-    [self updateItemsWithBlock:^(int idx, SWRateControlItem *item) {
-        item.rating = [wself ratingForItemAtIndex:idx];
+    [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
+        itemView.rating = [wself ratingForItemAtIndex:idx];
     }];
 }
 
@@ -219,8 +219,8 @@ static const CGFloat kDefaultHeight = 50;
     _rateColor = rateColor;
     
     __weak __typeof (self) wself = self;
-    [self updateItemsWithBlock:^(int idx, SWRateControlItem *item) {
-        [item setRateColor:wself.rateColor forState:UIControlStateNormal];
+    [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
+        [itemView setRateColor:wself.rateColor forState:UIControlStateNormal];
     }];
 }
 
@@ -231,8 +231,8 @@ static const CGFloat kDefaultHeight = 50;
     _rateColorHighlighted = rateColorHighlighted;
     
     __weak __typeof (self) wself = self;
-    [self updateItemsWithBlock:^(int idx, SWRateControlItem *item) {
-        [item setRateColor:wself.rateColorHighlighted forState:UIControlStateHighlighted];
+    [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
+        [itemView setRateColor:wself.rateColorHighlighted forState:UIControlStateHighlighted];
     }];
 }
 
@@ -243,8 +243,8 @@ static const CGFloat kDefaultHeight = 50;
     _rateImage = rateImage;
     
     __weak __typeof (self) wself = self;
-    [self updateItemsWithBlock:^(int idx, SWRateControlItem *item) {
-        [item setRateImage:wself.rateImage forState:UIControlStateNormal];
+    [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
+        [itemView setRateImage:wself.rateImage forState:UIControlStateNormal];
     }];
 }
 
@@ -255,8 +255,8 @@ static const CGFloat kDefaultHeight = 50;
     _rateImageHighlighted = rateImageHighlighted;
     
     __weak __typeof (self) wself = self;
-    [self updateItemsWithBlock:^(int idx, SWRateControlItem *item) {
-        [item setRateImage:wself.rateImageHighlighted forState:UIControlStateHighlighted];
+    [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
+        [itemView setRateImage:wself.rateImageHighlighted forState:UIControlStateHighlighted];
     }];
 }
 

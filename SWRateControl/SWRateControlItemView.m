@@ -1,21 +1,21 @@
 //
-//  SWRateControlItem.m
+//  SWRateControlItemView.m
 //  SWRateControlDemo
 //
 //  Created by stone win on 6/13/15.
 //  Copyright (c) 2015 stone win. All rights reserved.
 //
 
-#import "SWRateControlItem.h"
+#import "SWRateControlItemView.h"
 
-@interface SWRateControlItem ()
+@interface SWRateControlItemView ()
 
 @property (nonatomic, strong) UIColor *rateColor, *rateColorHighlighted;
 @property (nonatomic, strong) UIImage *rateImage, *rateImageHighlighted;
 
 @end
 
-@implementation SWRateControlItem
+@implementation SWRateControlItemView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -138,7 +138,7 @@
 
 @end
 
-@implementation SWRateControlItem (Appearance)
+@implementation SWRateControlItemView (Appearance)
 
 - (void)setRateColor:(UIColor *)rateColor forState:(UIControlState)state {
     switch (state) {

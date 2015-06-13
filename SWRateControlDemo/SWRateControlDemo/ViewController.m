@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SWRateControlItem.h"
+#import "SWRateControlItemView.h"
 #import "SWRateControl.h"
 
 @interface ViewController ()
@@ -20,10 +20,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     static const CGFloat kDimension = 100;
-    SWRateControlItem *item = [[SWRateControlItem alloc] initWithFrame:CGRectMake(0, 20, kDimension, kDimension)];
-    item.backgroundColor = [UIColor greenColor];
-    item.rating = .5f;
-    [self.view addSubview:item];
+    SWRateControlItemView *itemView = [[SWRateControlItemView alloc] initWithFrame:CGRectMake(0, 20, kDimension, kDimension)];
+    itemView.backgroundColor = [UIColor greenColor];
+    itemView.rating = .5f;
+    [self.view addSubview:itemView];
     
     SWRateControl *control = [[SWRateControl alloc] init];
     control.backgroundColor = [UIColor blueColor];
@@ -46,15 +46,15 @@
     
     __weak __typeof (self) wself = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [NSTimer scheduledTimerWithTimeInterval:.1f target:wself selector:@selector(timerFire:) userInfo:@{@"item": item, @"control": control} repeats:YES];
+        [NSTimer scheduledTimerWithTimeInterval:.1f target:wself selector:@selector(timerFire:) userInfo:@{@"item": itemView, @"control": control} repeats:YES];
     });
 }
 
 - (void)timerFire:(NSTimer *)timer {
     static CGFloat rating;
     
-    SWRateControlItem *item = timer.userInfo[@"item"];
-    item.rating = rating;
+    SWRateControlItemView *itemView = timer.userInfo[@"item"];
+    itemView.rating = rating;
     if (0 == rating) {
         UIImage *rateImage, *rateImageHighlighted;
         
@@ -66,8 +66,8 @@
             rateImageHighlighted = [UIImage imageNamed:@"star_highlighted"];
         }
         
-        [item setRateImage:rateImage forState:UIControlStateNormal];
-        [item setRateImage:rateImageHighlighted forState:UIControlStateHighlighted];
+        [itemView setRateImage:rateImage forState:UIControlStateNormal];
+        [itemView setRateImage:rateImageHighlighted forState:UIControlStateHighlighted];
     }
     
     int slowdown = (int)(rating * 10) % 4;
@@ -79,7 +79,7 @@
         {
             CGRect frame = CGRectZero;
             frame.size = [control sizeThatFits:CGSizeZero];
-            frame.origin.y = CGRectGetMaxY(item.frame);
+            frame.origin.y = CGRectGetMaxY(itemView.frame);
             control.frame = frame;
             
             if (0 == rating) {
