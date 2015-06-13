@@ -220,7 +220,7 @@ static const CGFloat kDefaultHeight = 50;
     
     __weak __typeof (self) wself = self;
     [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
-        [itemView setRateColor:wself.rateColor forState:UIControlStateNormal];
+        itemView.rateColor = wself.rateColor;
     }];
 }
 
@@ -232,7 +232,7 @@ static const CGFloat kDefaultHeight = 50;
     
     __weak __typeof (self) wself = self;
     [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
-        [itemView setRateColor:wself.rateColorHighlighted forState:UIControlStateHighlighted];
+        itemView.rateColorHighlighted = wself.rateColorHighlighted;
     }];
 }
 
@@ -244,7 +244,7 @@ static const CGFloat kDefaultHeight = 50;
     
     __weak __typeof (self) wself = self;
     [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
-        [itemView setRateImage:wself.rateImage forState:UIControlStateNormal];
+        itemView.rateImage = wself.rateImage;
     }];
 }
 
@@ -256,7 +256,7 @@ static const CGFloat kDefaultHeight = 50;
     
     __weak __typeof (self) wself = self;
     [self updateItemsWithBlock:^(int idx, SWRateControlItemView *itemView) {
-        [itemView setRateImage:wself.rateImageHighlighted forState:UIControlStateHighlighted];
+        itemView.rateImageHighlighted = wself.rateImageHighlighted;
     }];
 }
 

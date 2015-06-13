@@ -66,8 +66,8 @@
             rateImageHighlighted = [UIImage imageNamed:@"star_highlighted"];
         }
         
-        [itemView setRateImage:rateImage forState:UIControlStateNormal];
-        [itemView setRateImage:rateImageHighlighted forState:UIControlStateHighlighted];
+        itemView.rateImage = rateImage;
+        itemView.rateImageHighlighted = rateImageHighlighted;
     }
     
     int slowdown = (int)(rating * 10) % 4;

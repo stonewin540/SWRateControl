@@ -9,10 +9,6 @@
 #import "SWRateControlItemView.h"
 
 @interface SWRateControlItemView ()
-
-@property (nonatomic, strong) UIColor *rateColor, *rateColorHighlighted;
-@property (nonatomic, strong) UIImage *rateImage, *rateImageHighlighted;
-
 @end
 
 @implementation SWRateControlItemView
@@ -24,8 +20,8 @@
         self.contentMode = UIViewContentModeRedraw;
         self.enabled = NO;
         
-        [self setRateColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [self setRateColor:[UIColor yellowColor] forState:UIControlStateHighlighted];
+        _rateColor = [UIColor grayColor];
+        _rateColorHighlighted = [UIColor yellowColor];
     }
     return self;
 }
@@ -43,12 +39,44 @@
     [self setNeedsDisplay];
 }
 
+- (void)setRateColor:(UIColor *)ratingColor {
+    if ([_rateColor isEqual:ratingColor]) {
+        return;
+    }
+    _rateColor = ratingColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setRateColorHighlighted:(UIColor *)ratingColorHighlighted {
+    if ([_rateColorHighlighted isEqual:ratingColorHighlighted]) {
+        return;
+    }
+    _rateColorHighlighted = ratingColorHighlighted;
+    [self setNeedsDisplay];
+}
+
+- (void)setRateImage:(UIImage *)ratingImage {
+    if ([_rateImage isEqual:ratingImage]) {
+        return;
+    }
+    _rateImage = ratingImage;
+    [self setNeedsDisplay];
+}
+
+- (void)setRateImageHighlighted:(UIImage *)ratingImageHighlighted {
+    if ([_rateImageHighlighted isEqual:ratingImageHighlighted]) {
+        return;
+    }
+    _rateImageHighlighted = ratingImageHighlighted;
+    [self setNeedsDisplay];
+}
+
 #pragma mark - Draw
 
-- (UIBezierPath *)ratePathInRect:(CGRect)rect {
+- (UIBezierPath *)ratingPathInRect:(CGRect)rect {
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:rect];
     
-    // TODO: JUST A JOKE, REMOVE IT!
+    // TODO: JUST A JOKE, PLEASE REMOVE IT!
     {
         static int seed;
         
@@ -88,12 +116,12 @@
     
     CGContextSaveGState(context);
     {
-        UIBezierPath *path = [self ratePathInRect:rect];
+        UIBezierPath *path = [self ratingPathInRect:rect];
         [path addClip];
         
-        [[self rateColorForState:UIControlStateHighlighted] setFill];
+        [self.rateColorHighlighted setFill];
         CGContextFillRect(context, highlightedRect);
-        [[self rateColorForState:UIControlStateNormal] setFill];
+        [self.rateColor setFill];
         CGContextFillRect(context, normalRect);
     }
     CGContextRestoreGState(context);
@@ -108,9 +136,9 @@
         CGContextScaleCTM(context, 1, -1);
         CGContextTranslateCTM(context, 0, -CGRectGetHeight(rect));
         
-        CGContextDrawImage(context, rect, [self rateImageForState:UIControlStateNormal].CGImage);
+        CGContextDrawImage(context, rect, self.rateImage.CGImage);
         CGContextClipToRect(context, highlightedRect);
-        CGContextDrawImage(context, rect, [self rateImageForState:UIControlStateHighlighted].CGImage);
+        CGContextDrawImage(context, rect, self.rateImageHighlighted.CGImage);
     }
     CGContextRestoreGState(context);
 }
@@ -134,74 +162,6 @@
     {
         [self drawPathInRect:rect withContext:context];
     }
-}
-
-@end
-
-@implementation SWRateControlItemView (Appearance)
-
-- (void)setRateColor:(UIColor *)rateColor forState:(UIControlState)state {
-    switch (state) {
-        case UIControlStateHighlighted:
-            self.rateColorHighlighted = rateColor;
-            break;
-        case UIControlStateNormal:
-            self.rateColor = rateColor;
-            break;
-        default:
-            break;
-    }
-    
-    [self setNeedsDisplay];
-}
-
-- (UIColor *)rateColorForState:(UIControlState)state {
-    UIColor *color = nil;
-    
-    switch (state) {
-        case UIControlStateHighlighted:
-            color = self.rateColorHighlighted;
-            break;
-        case UIControlStateNormal:
-            color = self.rateColor;
-            break;
-        default:
-            break;
-    }
-    
-    return color;
-}
-
-- (void)setRateImage:(UIImage *)rateImage forState:(UIControlState)state {
-    switch (state) {
-        case UIControlStateHighlighted:
-            self.rateImageHighlighted = rateImage;
-            break;
-        case UIControlStateNormal:
-            self.rateImage = rateImage;
-            break;
-        default:
-            break;
-    }
-    
-    [self setNeedsDisplay];
-}
-
-- (UIImage *)rateImageForState:(UIControlState)state {
-    UIImage *image = nil;
-    
-    switch (state) {
-        case UIControlStateHighlighted:
-            image = self.rateImageHighlighted;
-            break;
-        case UIControlStateNormal:
-            image = self.rateImage;
-            break;
-        default:
-            break;
-    }
-    
-    return image;
 }
 
 @end
